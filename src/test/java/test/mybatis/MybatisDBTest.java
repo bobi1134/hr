@@ -2,6 +2,8 @@ package test.mybatis;
 
 import cn.mrx.hr.model.User;
 import cn.mrx.hr.service.IUserService;
+import cn.mrx.hr.utils.Log4jPrint;
+import com.github.pagehelper.PageHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +26,9 @@ public class MybatisDBTest {
 
     @Test
     public void test01(){
-        List<User> users = iUserService.selectUser();
-        for (User user : users) {
-            System.out.println(user.toString());
-        }
+        User user = iUserService.selectUser("admin");
+        Log4jPrint.println(MybatisDBTest.class, "xxxx", user);
+        Log4jPrint.println("ceshi", user);
     }
 
 }

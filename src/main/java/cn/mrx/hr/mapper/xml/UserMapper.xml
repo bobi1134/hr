@@ -3,13 +3,19 @@
 <mapper namespace="cn.mrx.hr.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="cn.mrx.hr.model.User">
         <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
         <result column="pwd" property="pwd" jdbcType="VARCHAR"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="salt" property="salt" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="dept_id" property="deptId" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, username, pwd, address
-  </sql>
+        id, account, pwd, address, salt, sex, phone, status, create_time, dept_id
+    </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -17,23 +23,24 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from t_user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="cn.mrx.hr.model.User">
-    insert into t_user (id, username, pwd, 
-      address)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR})
-  </insert>
+        insert into t_user (id, account, pwd, address, salt, sex, phone, status, create_time, dept_id)
+        values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR},
+          #{address,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
+          #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+          #{deptId,jdbcType=INTEGER})
+    </insert>
     <insert id="insertSelective" parameterType="cn.mrx.hr.model.User">
         insert into t_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
             </if>
-            <if test="username != null">
-                username,
+            <if test="account != null">
+                account,
             </if>
             <if test="pwd != null">
                 pwd,
@@ -41,13 +48,31 @@
             <if test="address != null">
                 address,
             </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="deptId != null">
+                dept_id,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="username != null">
-                #{username,jdbcType=VARCHAR},
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
             </if>
             <if test="pwd != null">
                 #{pwd,jdbcType=VARCHAR},
@@ -55,13 +80,31 @@
             <if test="address != null">
                 #{address,jdbcType=VARCHAR},
             </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deptId != null">
+                #{deptId,jdbcType=INTEGER},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="cn.mrx.hr.model.User">
         update t_user
         <set>
-            <if test="username != null">
-                username = #{username,jdbcType=VARCHAR},
+            <if test="account != null">
+                account = #{account,jdbcType=VARCHAR},
             </if>
             <if test="pwd != null">
                 pwd = #{pwd,jdbcType=VARCHAR},
@@ -69,20 +112,55 @@
             <if test="address != null">
                 address = #{address,jdbcType=VARCHAR},
             </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId,jdbcType=INTEGER},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="cn.mrx.hr.model.User">
-    update t_user
-    set username = #{username,jdbcType=VARCHAR},
-      pwd = #{pwd,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+        update t_user
+        set account = #{account,jdbcType=VARCHAR},
+          pwd = #{pwd,jdbcType=VARCHAR},
+          address = #{address,jdbcType=VARCHAR},
+          salt = #{salt,jdbcType=VARCHAR},
+          sex = #{sex,jdbcType=INTEGER},
+          phone = #{phone,jdbcType=VARCHAR},
+          status = #{status,jdbcType=INTEGER},
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+          dept_id = #{deptId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <!-- ####################################自定义######################################### -->
+    <select id="selectUserByAccount" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from
+          t_user
+        where
+          account = #{account}
+    </select>
 
     <select id="selectUser" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
-        from t_user
+          id, account, address, salt, sex, phone, status, create_time, dept_id
+        from
+         t_user
     </select>
 </mapper>

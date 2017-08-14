@@ -7,53 +7,47 @@
 						http://www.springframework.org/schema/context 
 						http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!--加载配置文件-->
+	<description>数据库连接配置</description>
+
+	<!--读取配置文件-->
 	<context:property-placeholder location="classpath:jdbc.properties" />
 
-	<!--druid数据源-->
+	<!--数据源-->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="url" value="${db.url}"/>
 		<property name="username" value="${db.username}"/>
 		<property name="password" value="${db.password}"/>
-		<!--初始化连接大小，初始化发生在显示调用init方法，或者第一次getConnection时-->
 		<property name="initialSize" value="0"/>
-		<!--最大连接池数量-->
 		<property name="maxActive" value="20"/>
-		<!--最小连接池数量-->
 		<property name="minIdle" value="0"/>
-		<!--获取连接时最大等待时间，单位毫秒-->
 		<property name="maxWait" value="60000"/>
-		<!--
-			属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：
-			监控统计用的filter:stat
-			日志用的filter:log4j
-			防御sql注入的filter:wall
-		-->
 		<property name="filters" value="stat" />
-		<!--配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒-->
 		<property name = "timeBetweenEvictionRunsMillis" value ="60000"/>
-
 	</bean>
 
-	<!--sqlSessionFactory-->
+	<!--Spring整合Mybatis-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-
 		<property name="mapperLocations" value="classpath:cn/mrx/**/mapper/xml/*.xml"/>
-		<!--<property name="plugins">
+		<property name="plugins">
 			<array>
-				<bean class="com.github.pagehelper.PageHelper">
+				<bean class="com.github.pagehelper.PageInterceptor">
 					<property name="properties">
-						<value>dialect=mysql</value>
+						<value>
+							helperDialect=mysql
+						</value>
 					</property>
 				</bean>
 			</array>
-		</property>-->
+		</property>
 	</bean>
 
-	<!--mapper扫描-->
+	<!--自动扫描注册mapper接口类到spring工厂中-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 		<property name="basePackage" value="cn.mrx.hr.mapper"/>
+		<!--
+			可以不用指定，因为MapperScannerConfigurer会自动装配
+			<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+		-->
 	</bean>
 </beans>

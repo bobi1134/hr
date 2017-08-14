@@ -46,11 +46,13 @@
         </javaClientGenerator>
 
         <!--步骤6：要根据哪张表生成，要在这里配置，用百分号表示生成所有表,可以直接省去一个一个写 <table tableName="%" />-->
-        <table tableName="t_user"
-               domainObjectName="User"
-               enableCountByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               enableUpdateByExample="false"/>
+        <table tableName="t_user" domainObjectName="User" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="t_role" domainObjectName="Role" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="t_user_role" domainObjectName="UserRole" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="t_resource" domainObjectName="Resource" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="t_role_resource" domainObjectName="RoleResource" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="t_dept" domainObjectName="Dept" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="t_log4j" domainObjectName="Log4j" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+
     </context>
 </generatorConfiguration>

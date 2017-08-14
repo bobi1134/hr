@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mrx.hr.mapper.Log4jMapper" >
+  <resultMap id="BaseResultMap" type="cn.mrx.hr.model.Log4j" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="log_level" property="logLevel" jdbcType="VARCHAR" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="class_path" property="classPath" jdbcType="VARCHAR" />
+    <result column="method_name" property="methodName" jdbcType="VARCHAR" />
+    <result column="line" property="line" jdbcType="VARCHAR" />
+    <result column="thread_name" property="threadName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.mrx.hr.model.Log4j" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, project_name, create_date, log_level, class_name, class_path, method_name, line, 
+    thread_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_log4j
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_log4j
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.mrx.hr.model.Log4j" >
+    insert into t_log4j (id, project_name, create_date, 
+      log_level, class_name, class_path, 
+      method_name, line, thread_name, 
+      message)
+    values (#{id,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{logLevel,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, #{classPath,jdbcType=VARCHAR}, 
+      #{methodName,jdbcType=VARCHAR}, #{line,jdbcType=VARCHAR}, #{threadName,jdbcType=VARCHAR}, 
+      #{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.mrx.hr.model.Log4j" >
+    insert into t_log4j
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="logLevel != null" >
+        log_level,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="classPath != null" >
+        class_path,
+      </if>
+      <if test="methodName != null" >
+        method_name,
+      </if>
+      <if test="line != null" >
+        line,
+      </if>
+      <if test="threadName != null" >
+        thread_name,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logLevel != null" >
+        #{logLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classPath != null" >
+        #{classPath,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null" >
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="line != null" >
+        #{line,jdbcType=VARCHAR},
+      </if>
+      <if test="threadName != null" >
+        #{threadName,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.mrx.hr.model.Log4j" >
+    update t_log4j
+    <set >
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logLevel != null" >
+        log_level = #{logLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classPath != null" >
+        class_path = #{classPath,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null" >
+        method_name = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="line != null" >
+        line = #{line,jdbcType=VARCHAR},
+      </if>
+      <if test="threadName != null" >
+        thread_name = #{threadName,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.mrx.hr.model.Log4j" >
+    update t_log4j
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      log_level = #{logLevel,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      class_path = #{classPath,jdbcType=VARCHAR},
+      method_name = #{methodName,jdbcType=VARCHAR},
+      line = #{line,jdbcType=VARCHAR},
+      thread_name = #{threadName,jdbcType=VARCHAR},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.mrx.hr.model.Log4j" >
+    update t_log4j
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      log_level = #{logLevel,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      class_path = #{classPath,jdbcType=VARCHAR},
+      method_name = #{methodName,jdbcType=VARCHAR},
+      line = #{line,jdbcType=VARCHAR},
+      thread_name = #{threadName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
