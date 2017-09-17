@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title>user-manager.jsp</title>
@@ -18,9 +19,9 @@
     </style>
 </head>
 <body>
-    <table id="dataGrid" data-options="fit:true,border:false">
 
-    </table>
+    <%--数据表格--%>
+    <table id="dataGrid" data-options="fit:true,border:false"> </table>
 
     <script type="text/javascript">
         $('#dataGrid').datagrid({
@@ -39,13 +40,17 @@
                 }},
                 {field:'create_time',title:'创建时间',width:100,align:'center'},
                 {field:'dept_id',title:'部门ID',width:100,align:'center'},
-                {field:'operation',title:'操作',width:100,align:'center',formatter:function(){
-                    return "<a href='#'>编辑</a>&nbsp;&nbsp;<a href='#'>删除</a>";;
+                {field:'operation',title:'操作',width:100,align:'center',formatter:function(value, row){
+                    return "<a href='#' onclick='editUser("+row.id+")'>编辑</a>&nbsp;&nbsp;<a href='#'>删除</a>";;
                 }},
             ]],
             pagination:true,
             pageSize:10
         });
+
+        function editUser(id) {
+           alert("id: "+id);
+        }
     </script>
 </body>
 </html>

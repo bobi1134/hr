@@ -49,7 +49,7 @@ public class HrRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        Log4jPrint.println(HrRealm.class, "Shiro开始认证", null);
+        Log4jPrint.println("Shiro开始认证...");
         String account = (String) token.getPrincipal();
         User user = iUserService.selectUser(account);
         if(user == null)    return null;
@@ -65,7 +65,7 @@ public class HrRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        Log4jPrint.println(HrRealm.class, "Shiro开始授权", null);
+        Log4jPrint.println("Shiro开始授权...");
         Integer userId = (Integer) principalCollection.getPrimaryPrincipal();
         Set<String> roleNameSet = new HashSet<>();
         Set<String> resourceUrlSet = new HashSet<>();
@@ -82,7 +82,10 @@ public class HrRealm extends AuthorizingRealm {
         //返回授权信息
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roleNameSet);
-        info.addStringPermissions(resourceUrlSet);
+        //info.addStringPermissions(resourceUrlSet);
+
+        Log4jPrint.println("resourceUrlSet结果", resourceUrlSet);
+        info.setStringPermissions(resourceUrlSet);
         return info;
     }
 }

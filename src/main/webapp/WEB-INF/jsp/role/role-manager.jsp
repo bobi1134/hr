@@ -30,7 +30,6 @@
     <form id="grantForm" action="${ctx}/role/grant" method="post">
         <input type="hidden" name="roleId" id="roleId"/>
         <input type="hidden" name="resourceIds" id="resourceIds"/>
-        <input type="submit" value="提交==="/>
     </form>
 
     <script type="text/javascript">
@@ -81,6 +80,8 @@
                         //赋值给隐藏表单
                         $("#resourceIds").val(resourceIds);
                         $("#roleId").val(id);
+
+                        alert("resourceIds-->"+resourceIds);
 
                         //修改
                         $.post("${ctx}/role/grant", {resourceIds:$("#resourceIds").val(), roleId:$("#roleId").val()}, function (res) {

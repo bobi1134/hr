@@ -88,11 +88,11 @@
             }
         });
 
-         /**
-          * 添加选项卡
-          * @param title：标题
-          * @param url：跳转路径
-          */
+        /**
+         * 添加选项卡
+         * @param title：标题
+         * @param url：跳转路径
+         */
         function addTab(title, url){
             if ($('#menu-tab').tabs('exists', title)){
                 $('#menu-tab').tabs('select', title);

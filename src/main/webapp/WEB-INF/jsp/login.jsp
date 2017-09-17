@@ -28,7 +28,7 @@
                     <input class="easyui-textbox" type="password" style="width:100%;height:40px;padding:12px" data-options="prompt:'********',iconCls:'icon-lock',iconWidth:38" name="pwd"/>
                 </div>
                 <div style="margin-bottom:20px">
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox" checked name="rememberMe" value="1"/>
                     <span>Remember me</span>
                 </div>
                 <div>

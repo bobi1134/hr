@@ -10,6 +10,13 @@ import org.slf4j.LoggerFactory;
  */
 public class Log4jPrint {
 
+    public static void  println(String tip){
+        Logger logger = LoggerFactory.getLogger(Log4jPrint.class);
+        logger.info(getStr(null));
+        System.out.println(tip);
+        System.out.println(getStr(null));
+    }
+
     public static void  println(String tip, Object result){
         Logger logger = LoggerFactory.getLogger(Log4jPrint.class);
         logger.info(getStr(result));

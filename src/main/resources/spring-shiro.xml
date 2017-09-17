@@ -29,6 +29,10 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!--注入自定义Realm-->
         <property name="realm" ref="customRealm" />
+        <!--session管理器-->
+        <property name="sessionManager" ref="sessionManager"/>
+        <!--记住我管理器-->
+        <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
 
     <!--自定义Realm-->
@@ -41,5 +45,28 @@
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="2"/>
+    </bean>
+
+    <!--session管理-->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <!--session失效时间,单位为秒,这里可以使用Spring el表达式,这里设置为30分钟-->
+        <property name="globalSessionTimeout" value="#{30*1000}"/>
+        <!--删除失效后的session-->
+        <property name="deleteInvalidSessions" value="true"/>
+    </bean>
+
+    <!--记住我管理器-->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <!--加密rememberMe Cookie的密钥-->
+        <!--<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('5aaC5qKm5oqA5pyvAAAAAA==')}"/>-->
+        <property name="cookie" ref="cookie"/>
+    </bean>
+
+    <!--cookie设置-->
+    <bean id="cookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <!--7天-->
+        <property name="maxAge" value="#{7 * 24 * 60 * 60}"/>
     </bean>
 </beans>

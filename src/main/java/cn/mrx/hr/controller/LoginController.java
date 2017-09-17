@@ -1,10 +1,12 @@
 package cn.mrx.hr.controller;
 
 import cn.mrx.hr.service.IUserService;
+import cn.mrx.hr.utils.Log4jPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -53,7 +55,7 @@ public class LoginController {
      */
     @PostMapping(value = "/login")
     @ResponseBody
-    public Object userLogin(String account, String pwd){
-        return iUserService.userLogin(account, pwd);
+    public Object userLogin(String account, String pwd, @RequestParam(defaultValue = "0") Integer rememberMe){
+        return iUserService.userLogin(account, pwd, rememberMe);
     }
 }

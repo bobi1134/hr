@@ -20,7 +20,7 @@ public interface IUserService {
      * @param pwd
      * @return
      */
-    AjaxResult userLogin(String account, String pwd);
+    AjaxResult userLogin(String account, String pwd, Integer rememberMe);
 
     /**
      * 根据账号查询用户
@@ -36,4 +36,11 @@ public interface IUserService {
      * @return  EasyUI DataGrid
      */
     DataGridPage selectUser(Integer page, Integer rows);
+
+    /**
+     * 根据userId查询用户(测试越权问题)
+     * @param userId
+     * @return
+     */
+    AjaxResult selectUserById(Integer userId);
 }

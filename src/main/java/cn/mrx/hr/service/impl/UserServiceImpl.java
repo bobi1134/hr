@@ -37,7 +37,7 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     @Override
-    public AjaxResult userLogin(String account, String pwd) {
+    public AjaxResult userLogin(String account, String pwd, Integer rememberMe) {
         //非空判断
         if(!StringUtils.isNotBlank(account))
             return AjaxResult.R(false, "用户名不能为空！");
@@ -47,6 +47,7 @@ public class UserServiceImpl implements IUserService {
         //用户登录认证
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(account, pwd);
+        token.setRememberMe(1==rememberMe);
         try {
             subject.login(token);
         } catch (UnknownAccountException e) {
@@ -82,5 +83,10 @@ public class UserServiceImpl implements IUserService {
         PageInfo<User> pageInfo = new PageInfo<>(userList);
         dataGridPage.setTotal(pageInfo.getTotal());
         return dataGridPage;
+    }
+
+    @Override
+    public AjaxResult selectUserById(Integer userId) {
+        return AjaxResult.R(true, "查询成功！", userMapper.selectByPrimaryKey(userId));
     }
 }
